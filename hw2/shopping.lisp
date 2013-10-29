@@ -21,7 +21,7 @@
   (:operator GO
       :parameters (?l ?m)
       :precondition (at shopper ?l)
-      :effect (:and (at shopper ?m) (:not (at shopper ?m))))
+      :effect (:and (at shopper ?m) (:not (at shopper ?l))))
   ;; Buy product p from shop s
   (:operator BUY
       :parameters (?p ?s)

@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>~/workspace/mas/mas-pas/shopping.output.lisp.html</title>
+<meta name="Generator" content="Vim/7.3">
+<meta name="plugin-version" content="vim7.3_v6">
+<meta name="syntax" content="lisp">
+<meta name="settings" content="use_css">
+<style type="text/css">
+<!--
+pre { font-family: monospace; color: #000000; background-color: #ffffff; }
+body { font-family: monospace; color: #000000; background-color: #ffffff; }
+.Comment { color: #0000c0; }
+.Constant { color: #c00000; }
+.Statement { color: #af5f00; }
+.Special { color: #c000c0; }
+-->
+</style>
+</head>
+<body>
+<pre>
+
+Initial  :
+<span class="Special">((</span>LOCATION HOME<span class="Special">)</span> <span class="Special">(</span>LOCATION HARDWARE-STORE<span class="Special">)</span> <span class="Special">(</span>LOCATION SUPER-MARKET<span class="Special">)</span>
+ <span class="Special">(</span>AT SHOPPER HOME<span class="Special">)</span> <span class="Special">(</span>AT DRILL HARDWARE-STORE<span class="Special">)</span> <span class="Special">(</span>AT MILK SUPER-MARKET<span class="Special">)</span>
+ <span class="Special">(</span>AT BANANA SUPER-MARKET<span class="Special">)</span> <span class="Special">(</span>SELLS HARDWARE-STORE DRILL<span class="Special">)</span>
+ <span class="Special">(</span>SELLS SUPER-MARKET MILK<span class="Special">)</span> <span class="Special">(</span>SELLS SUPER-MARKET BANANA<span class="Special">))</span>
+
+<span class="Statement">Step</span> <span class="Constant">1</span>  : <span class="Special">(</span><span class="Statement">GO</span> HOME SUPER-MARKET<span class="Special">)</span>   Created <span class="Constant">3</span>
+           <span class="Constant">0</span>  -&gt; <span class="Special">(</span>AT SHOPPER HOME<span class="Special">)</span>
+<span class="Statement">Step</span> <span class="Constant">2</span>  : <span class="Special">(</span><span class="Statement">GO</span> SUPER-MARKET HARDWARE-STORE<span class="Special">)</span>   Created <span class="Constant">2</span>
+           <span class="Constant">3</span>  -&gt; <span class="Special">(</span>AT SHOPPER SUPER-MARKET<span class="Special">)</span>
+<span class="Statement">Step</span> <span class="Constant">3</span>  : <span class="Special">(</span>BUY BANANA SUPER-MARKET<span class="Special">)</span>   Created <span class="Constant">5</span>
+           <span class="Constant">0</span>  -&gt; <span class="Special">(</span>SELLS SUPER-MARKET BANANA<span class="Special">)</span>
+           <span class="Constant">3</span>  -&gt; <span class="Special">(</span>AT SHOPPER SUPER-MARKET<span class="Special">)</span>
+<span class="Statement">Step</span> <span class="Constant">4</span>  : <span class="Special">(</span>BUY MILK SUPER-MARKET<span class="Special">)</span>   Created <span class="Constant">4</span>
+           <span class="Constant">0</span>  -&gt; <span class="Special">(</span>SELLS SUPER-MARKET MILK<span class="Special">)</span>
+           <span class="Constant">3</span>  -&gt; <span class="Special">(</span>AT SHOPPER SUPER-MARKET<span class="Special">)</span>
+<span class="Statement">Step</span> <span class="Constant">5</span>  : <span class="Special">(</span>BUY DRILL HARDWARE-STORE<span class="Special">)</span>   Created <span class="Constant">1</span>
+           <span class="Constant">0</span>  -&gt; <span class="Special">(</span>SELLS HARDWARE-STORE DRILL<span class="Special">)</span>
+           <span class="Constant">2</span>  -&gt; <span class="Special">(</span>AT SHOPPER HARDWARE-STORE<span class="Special">)</span>
+
+Goal    :
+<span class="Special">(</span><span class="Statement">AND</span> <span class="Special">(</span>HAS SHOPPER DRILL<span class="Special">)</span> <span class="Special">(</span>HAS SHOPPER MILK<span class="Special">)</span> <span class="Special">(</span>HAS SHOPPER BANANA<span class="Special">)</span>
+ <span class="Special">(</span>AT SHOPPER HOME<span class="Special">))</span>
+           <span class="Constant">0</span>  -&gt; <span class="Special">(</span>AT SHOPPER HOME<span class="Special">)</span>
+           <span class="Constant">5</span>  -&gt; <span class="Special">(</span>HAS SHOPPER BANANA<span class="Special">)</span>
+           <span class="Constant">4</span>  -&gt; <span class="Special">(</span>HAS SHOPPER MILK<span class="Special">)</span>
+           <span class="Constant">1</span>  -&gt; <span class="Special">(</span>HAS SHOPPER DRILL<span class="Special">)</span>
+Facts:
+Complete!
+
+UCPOP Stats: Initial terms <span class="Statement">=</span> <span class="Constant">10</span><span class="Comment">;   Goals = 5 ;  Success (5 steps)</span>
+      Created <span class="Constant">29</span> plans, but explored only <span class="Constant">21</span>
+      CPU time:    <span class="Constant">0.0430</span> sec
+      Branching factor:  <span class="Constant">1.333</span>
+      Working Unifies: <span class="Constant">187</span>
+      Bindings Added: <span class="Constant">25</span>
+</pre>
+</body>
+</html>

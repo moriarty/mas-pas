@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>~/workspace/mas/mas-pas/shopping.lisp.html</title>
+<meta name="Generator" content="Vim/7.3">
+<meta name="plugin-version" content="vim7.3_v6">
+<meta name="syntax" content="lisp">
+<meta name="settings" content="use_css">
+<style type="text/css">
+<!--
+pre { font-family: monospace; color: #000000; background-color: #ffffff; }
+body { font-family: monospace; color: #000000; background-color: #ffffff; }
+.Identifier { color: #008080; }
+.Constant { color: #c00000; }
+.Type { color: #008000; }
+.Statement { color: #af5f00; }
+.Special { color: #c000c0; }
+.Comment { color: #0000c0; }
+-->
+</style>
+</head>
+<body>
+<pre>
+<span class="Comment">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+<span class="Comment">;;;; Shopping problem using UCPOP</span>
+<span class="Comment">;;;; Author: Alex Moriarty &amp; Alex Hagg </span>
+<span class="Comment">;;;; Course: Planning &amp; Scheduling</span>
+<span class="Comment">;;;; Due: Tuesday, 29 October 2013, 1900h</span>
+
+<span class="Comment">;; Load the required libraries and change package</span>
+<span class="Comment">;; This prints a bunch of crap which we send to /dev/null</span>
+
+<span class="Special">(</span><span class="Statement">defparameter</span> <span class="Type">*ucpop-root-dir*</span> <span class="Special">(</span><span class="Statement">string</span> <span class="Constant">&quot;~/src/ucpop/&quot;</span><span class="Special">))</span>
+
+<span class="Special">(</span><span class="Statement">with-open-file</span> <span class="Special">(</span><span class="Statement">*standard-output*</span> <span class="Constant">&quot;/dev/null&quot;</span> <span class="Type">:direction</span> <span class="Type">:output</span>
+    <span class="Type">:if-exists</span> <span class="Type">:supersede</span><span class="Special">)</span>
+    <span class="Special">(</span><span class="Statement">load</span> <span class="Special">(</span><span class="Statement">concatenate</span> <span class="Special">'</span><span class="Identifier">string</span> <span class="Type">*ucpop-root-dir*</span> <span class="Constant">&quot;loader&quot;</span><span class="Special">))</span>
+    <span class="Special">(</span>load-ucpop<span class="Special">)</span>
+    <span class="Special">(</span><span class="Statement">in-package</span> ucpop<span class="Special">))</span>
+
+<span class="Special">(</span>define <span class="Special">(</span>domain shopping-domain<span class="Special">)</span>
+
+  <span class="Comment">;; Go from location l to m</span>
+  <span class="Special">(</span>:operator <span class="Statement">GO</span>
+      :parameters <span class="Special">(</span>?l ?m<span class="Special">)</span>
+      :precondition <span class="Special">(</span>at shopper ?l<span class="Special">)</span>
+      :effect <span class="Special">(</span><span class="Type">:and</span> <span class="Special">(</span>at shopper ?m<span class="Special">)</span> <span class="Special">(</span>:not <span class="Special">(</span>at shopper ?m<span class="Special">))))</span>
+  <span class="Comment">;; Buy product p from shop s</span>
+  <span class="Special">(</span>:operator BUY
+      :parameters <span class="Special">(</span>?p ?s<span class="Special">)</span>
+      :precondition <span class="Special">(</span><span class="Type">:and</span> <span class="Special">(</span>at shopper ?s<span class="Special">)</span> <span class="Special">(</span>sells ?s ?p<span class="Special">))</span>
+      :effect <span class="Special">(</span>has shopper ?p<span class="Special">)))</span>
+
+<span class="Special">(</span>define <span class="Special">(</span>problem shopping-example<span class="Special">)</span>
+    :domain <span class="Special">'</span><span class="Identifier">shopping-domain</span>
+    :inits <span class="Special">((</span>location home<span class="Special">)(</span>location hardware-store<span class="Special">)(</span>location super-market<span class="Special">)</span>
+      <span class="Special">(</span>at shopper home<span class="Special">)(</span>at drill hardware-store<span class="Special">)(</span>at milk super-market<span class="Special">)(</span>at banana super-market<span class="Special">)</span>
+      <span class="Special">(</span>sells hardware-store drill<span class="Special">)(</span>sells super-market milk<span class="Special">)(</span>sells super-market banana<span class="Special">))</span>
+    :goal <span class="Special">(</span><span class="Type">:and</span> <span class="Special">(</span>has shopper drill<span class="Special">)(</span>has shopper milk<span class="Special">)(</span>has shopper banana<span class="Special">)(</span>at shopper home<span class="Special">)))</span>
+
+<span class="Special">(</span>bf-control <span class="Special">'</span><span class="Identifier">shopping-example</span><span class="Special">)</span>
+</pre>
+</body>
+</html>

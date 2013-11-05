@@ -1,0 +1,263 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>~/workspace/mas/mas-pas/hw3/shopping.lisp.html</title>
+<meta name="Generator" content="Vim/7.3">
+<meta name="plugin-version" content="vim7.3_v6">
+<meta name="syntax" content="lisp">
+<meta name="settings" content="use_css">
+<style type="text/css">
+<!--
+pre { font-family: monospace; color: #000000; background-color: #ffffff; }
+body { font-family: monospace; color: #000000; background-color: #ffffff; }
+.Type { color: #008000; }
+.Identifier { color: #008080; }
+.Constant { color: #c00000; }
+.Statement { color: #af5f00; }
+.Special { color: #c000c0; }
+.Comment { color: #0000c0; }
+-->
+</style>
+</head>
+<body>
+<pre>
+<span class="Comment">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+<span class="Comment">;;;; Shopping problem using SGP</span>
+<span class="Comment">;;;; Author: Alex Moriarty &amp; Alex Hagg </span>
+<span class="Comment">;;;; Course: Planning &amp; Scheduling</span>
+<span class="Comment">;;;; Due: Tuesday, 5 November 2013, 1900h</span>
+
+<span class="Comment">;;(defparameter *sgp-root-dir* (string &quot;~/src/sgp/&quot;))</span>
+<span class="Comment">;;(load (concatenate 'string *sgp-root-dir* &quot;loader&quot;))</span>
+
+<span class="Special">(</span><span class="Statement">load</span> <span class="Constant">&quot;~/src/sgp/loader&quot;</span><span class="Special">)</span>
+<span class="Comment">;; must also modify ~/src/sgp/loader to proper paths of files loaded.ß</span>
+
+<span class="Special">(</span>load-gp<span class="Special">)</span>
+<span class="Special">(</span><span class="Statement">in-package</span> :sgp<span class="Special">)</span>
+<span class="Comment">;;(defparameter *sgp-root-dir* (string &quot;~/src/sgp/&quot;))</span>
+<span class="Comment">;;(load (concatenate 'string *sgp-root-dir* &quot;domains/bt.lisp&quot;))</span>
+<span class="Comment">;; (load &quot;~/src/sgp/domains/bt.lisp&quot;)</span>
+
+
+<span class="Special">(</span><span class="Statement">in-package</span> :domains<span class="Special">)</span>
+
+<span class="Special">(</span>define <span class="Special">(</span>domain shopping-sgp<span class="Special">)</span> <span class="Special">(</span>:requirements :typing <span class="Special">)</span>
+  <span class="Special">(</span>:action <span class="Statement">GO</span>
+       :parameters <span class="Special">(</span>?start ?goal<span class="Special">)</span>
+       :precondition <span class="Special">(</span><span class="Statement">and</span> <span class="Special">(</span>location ?start<span class="Special">)</span> <span class="Special">(</span>location ?goal<span class="Special">)</span> <span class="Special">(</span>at ?start<span class="Special">))</span>
+       :effect <span class="Special">(</span><span class="Statement">and</span> <span class="Special">(</span>at ?goal<span class="Special">)</span> <span class="Special">(</span><span class="Statement">not</span> <span class="Special">(</span>at ?start<span class="Special">))))</span>
+
+  <span class="Special">(</span>:action BUY
+       :parameters <span class="Special">(</span>?prod ?shop<span class="Special">)</span>
+       :precondition <span class="Special">(</span><span class="Statement">and</span> <span class="Special">(</span>location ?shop<span class="Special">)</span> <span class="Special">(</span>product ?prod<span class="Special">)</span> <span class="Special">(</span>at ?shop<span class="Special">)</span> <span class="Special">(</span>sells ?shop ?prod<span class="Special">))</span>
+       :effect <span class="Special">(</span>has ?prod<span class="Special">))</span>
+
+<span class="Special">)</span>
+
+<span class="Special">(</span>define <span class="Special">(</span>problem shopping-problem-sgp<span class="Special">)</span>
+  <span class="Special">(</span>:domain shopping-sgp<span class="Special">)</span>
+  <span class="Special">(</span>:objects drill banana milk home hardware-store supermarket<span class="Special">)</span>
+  <span class="Special">(</span>:init
+     <span class="Special">(</span>location home<span class="Special">)(</span>location hardware-store<span class="Special">)(</span>location super-market<span class="Special">)</span>
+     <span class="Special">(</span>at home<span class="Special">)</span>
+     <span class="Special">(</span>sells hardware-store drill<span class="Special">)(</span>sells super-market milk<span class="Special">)(</span>sells super-market banana<span class="Special">))</span>
+  <span class="Special">(</span>:goal
+    <span class="Special">(</span><span class="Statement">and</span> <span class="Special">(</span>has drill<span class="Special">)(</span>has milk<span class="Special">)(</span>has banana<span class="Special">)(</span>at home<span class="Special">))</span>
+  <span class="Special">)</span>
+
+<span class="Special">)</span>
+
+<span class="Special">(</span><span class="Statement">in-package</span> :sgp<span class="Special">)</span>
+<span class="Special">(</span>trace-gp contexts<span class="Special">)</span>
+<span class="Special">(</span>plan <span class="Special">'</span><span class="Identifier">shopping-problem-sgp</span><span class="Special">)</span>
+
+<span class="Comment">;; NOTE: DOES NOTE WORK.</span>
+<span class="Comment">;; SGP is over 13 years old, following the README provided, the examples do not work</span>
+<span class="Comment">;; We believe this to be a issue with modern CLisp, and an incompatible old library.</span>
+
+<span class="Comment">;; Here is our error message when running example:</span>
+alex@A-MBP:.../sgp$ clisp
+  i i i i i i i       ooooo    o        ooooooo   ooooo   ooooo
+  I I I I I I I      <span class="Constant">8</span>     <span class="Constant">8</span>   <span class="Constant">8</span>           <span class="Constant">8</span>     <span class="Constant">8</span>     o  <span class="Constant">8</span>    <span class="Constant">8</span>
+  I  \ `<span class="Statement">+</span><span class="Special">'</span> <span class="Statement">/</span>  I      <span class="Constant">8</span>         <span class="Constant">8</span>           <span class="Constant">8</span>     <span class="Constant">8</span>        <span class="Constant">8</span>    <span class="Constant">8</span>
+   \  `-+-<span class="Special">'</span>  <span class="Statement">/</span>       <span class="Constant">8</span>         <span class="Constant">8</span>           <span class="Constant">8</span>      ooooo   <span class="Constant">8</span>oooo
+    `-__|__-<span class="Special">'</span>        <span class="Constant">8</span>         <span class="Constant">8</span>           <span class="Constant">8</span>           <span class="Constant">8</span>  <span class="Constant">8</span>
+        |            <span class="Constant">8</span>     o   <span class="Constant">8</span>           <span class="Constant">8</span>     o     <span class="Constant">8</span>  <span class="Constant">8</span>
+  ------+------       ooooo    <span class="Constant">8</span>oooooo  ooo<span class="Constant">8</span>ooo   ooooo   <span class="Constant">8</span>
+
+Welcome to GNU CLISP <span class="Constant">2.49</span> <span class="Special">(</span><span class="Constant">2010-07-07</span><span class="Special">)</span> &lt;<a href="http://clisp.">http://clisp.</a><span class="Statement">cons</span>.org/&gt;
+
+Copyright <span class="Special">(</span>c<span class="Special">)</span> Bruno Haible, Michael Stoll <span class="Constant">1992</span>, <span class="Constant">1993</span>
+Copyright <span class="Special">(</span>c<span class="Special">)</span> Bruno Haible, Marcus Daniels <span class="Constant">1994-1997</span>
+Copyright <span class="Special">(</span>c<span class="Special">)</span> Bruno Haible, Pierpaolo Bernardi, Sam Steingold <span class="Constant">1998</span>
+Copyright <span class="Special">(</span>c<span class="Special">)</span> Bruno Haible, Sam Steingold <span class="Constant">1999-2000</span>
+Copyright <span class="Special">(</span>c<span class="Special">)</span> Sam Steingold, Bruno Haible <span class="Constant">2001-2010</span>
+
+<span class="Statement">Type</span> :h <span class="Statement">and</span> hit Enter for context help.
+
+[<span class="Constant">1</span>]<span class="Statement">&gt;</span> <span class="Special">(</span><span class="Statement">load</span> <span class="Constant">&quot;loader&quot;</span><span class="Special">)</span>
+<span class="Comment">;; Loading file /Users/alex/src/sgp/loader.lisp ...</span>
+<span class="Comment">;; Loaded file /Users/alex/src/sgp/loader.lisp</span>
+<span class="Statement">T</span>
+[<span class="Constant">2</span>]<span class="Statement">&gt;</span> <span class="Special">(</span>load-gp<span class="Special">)</span>
+<span class="Comment">; Loading domains</span>
+<span class="Comment">;; Loading file /Users/alex/src/sgp/domains.fas ...</span>
+<span class="Comment">;; Loaded file /Users/alex/src/sgp/domains.fas</span>
+<span class="Comment">; Loading logic</span>
+<span class="Comment">;; Loading file /Users/alex/src/sgp/logic.fas ...</span>
+<span class="Comment">;; Loaded file /Users/alex/src/sgp/logic.fas</span>
+<span class="Comment">; Loading gp</span>
+<span class="Comment">;; Loading file /Users/alex/src/sgp/gp.lisp ...</span>
+<span class="Comment">;; Loaded file /Users/alex/src/sgp/gp.lisp</span>
+<span class="Comment">; Loading sgp</span>
+<span class="Comment">;; Loading file /Users/alex/src/sgp/sgp.lisp ...</span>
+<span class="Comment">;; Loaded file /Users/alex/src/sgp/sgp.lisp</span>
+<span class="Statement">NIL</span>
+[<span class="Constant">3</span>]<span class="Statement">&gt;</span> <span class="Special">(</span><span class="Statement">in-package</span> :sgp<span class="Special">)</span>
+#&lt;PACKAGE SGP&gt;
+SGP[<span class="Constant">4</span>]<span class="Statement">&gt;</span> <span class="Special">(</span><span class="Statement">load</span> <span class="Constant">&quot;domains/bt.lisp&quot;</span><span class="Special">)</span>
+<span class="Comment">;; Loading file domains/bt.lisp ...</span>
+<span class="Comment">;; Loaded file domains/bt.lisp</span>
+<span class="Statement">T</span>
+SGP[<span class="Constant">5</span>]<span class="Statement">&gt;</span> <span class="Special">(</span>trace-gp contexts<span class="Special">)</span>
+<span class="Statement">NIL</span>
+SGP[<span class="Constant">6</span>]<span class="Statement">&gt;</span> <span class="Special">(</span>plan <span class="Special">'</span><span class="Identifier">bt-2sa</span><span class="Special">)</span>
+Using backtracking CSP solver
+Using induced mutexes
+<span class="Constant">5</span> contexts
+Contexts:
+--- <span class="Constant">1</span> ---
+     <span class="Special">(</span>OBJECT TOILET1<span class="Special">)</span>
+     <span class="Special">(</span>OBJECT PKG5<span class="Special">)</span>
+     <span class="Special">(</span>OBJECT PKG4<span class="Special">)</span>
+     <span class="Special">(</span>OBJECT PKG3<span class="Special">)</span>
+     <span class="Special">(</span>OBJECT PKG2<span class="Special">)</span>
+     <span class="Special">(</span>OBJECT PKG1<span class="Special">)</span>
+     <span class="Special">(</span>ODOR-OF-EXPLOSIVES PKG5<span class="Special">)</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>ODOR-OF-EXPLOSIVES PKG4<span class="Special">))</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>ODOR-OF-EXPLOSIVES PKG3<span class="Special">))</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>ODOR-OF-EXPLOSIVES PKG2<span class="Special">))</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>ODOR-OF-EXPLOSIVES PKG1<span class="Special">))</span>
+     <span class="Special">(</span>METAL PKG5<span class="Special">)</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>METAL PKG4<span class="Special">))</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>METAL PKG3<span class="Special">))</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>METAL PKG2<span class="Special">))</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>METAL PKG1<span class="Special">))</span>
+     <span class="Special">(</span>IN PKG5<span class="Special">)</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>IN PKG1<span class="Special">))</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>IN PKG2<span class="Special">))</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>IN PKG3<span class="Special">))</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>IN PKG4<span class="Special">))</span>
+     <span class="Special">(</span>ARMED<span class="Special">)</span>
+     <span class="Special">(</span>TOILET TOILET1<span class="Special">)</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>CLOGGED TOILET1<span class="Special">))</span>
+--- <span class="Constant">2</span> ---
+     <span class="Special">(</span>OBJECT TOILET1<span class="Special">)</span>
+     <span class="Special">(</span>OBJECT PKG5<span class="Special">)</span>
+     <span class="Special">(</span>OBJECT PKG4<span class="Special">)</span>
+     <span class="Special">(</span>OBJECT PKG3<span class="Special">)</span>
+     <span class="Special">(</span>OBJECT PKG2<span class="Special">)</span>
+     <span class="Special">(</span>OBJECT PKG1<span class="Special">)</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>ODOR-OF-EXPLOSIVES PKG5<span class="Special">))</span>
+     <span class="Special">(</span>ODOR-OF-EXPLOSIVES PKG4<span class="Special">)</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>ODOR-OF-EXPLOSIVES PKG3<span class="Special">))</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>ODOR-OF-EXPLOSIVES PKG2<span class="Special">))</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>ODOR-OF-EXPLOSIVES PKG1<span class="Special">))</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>METAL PKG5<span class="Special">))</span>
+     <span class="Special">(</span>METAL PKG4<span class="Special">)</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>METAL PKG3<span class="Special">))</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>METAL PKG2<span class="Special">))</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>METAL PKG1<span class="Special">))</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>IN PKG5<span class="Special">))</span>
+     <span class="Special">(</span>IN PKG4<span class="Special">)</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>IN PKG1<span class="Special">))</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>IN PKG2<span class="Special">))</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>IN PKG3<span class="Special">))</span>
+     <span class="Special">(</span>ARMED<span class="Special">)</span>
+     <span class="Special">(</span>TOILET TOILET1<span class="Special">)</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>CLOGGED TOILET1<span class="Special">))</span>
+--- <span class="Constant">3</span> ---
+     <span class="Special">(</span>OBJECT TOILET1<span class="Special">)</span>
+     <span class="Special">(</span>OBJECT PKG5<span class="Special">)</span>
+     <span class="Special">(</span>OBJECT PKG4<span class="Special">)</span>
+     <span class="Special">(</span>OBJECT PKG3<span class="Special">)</span>
+     <span class="Special">(</span>OBJECT PKG2<span class="Special">)</span>
+     <span class="Special">(</span>OBJECT PKG1<span class="Special">)</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>ODOR-OF-EXPLOSIVES PKG5<span class="Special">))</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>ODOR-OF-EXPLOSIVES PKG4<span class="Special">))</span>
+     <span class="Special">(</span>ODOR-OF-EXPLOSIVES PKG3<span class="Special">)</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>ODOR-OF-EXPLOSIVES PKG2<span class="Special">))</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>ODOR-OF-EXPLOSIVES PKG1<span class="Special">))</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>METAL PKG5<span class="Special">))</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>METAL PKG4<span class="Special">))</span>
+     <span class="Special">(</span>METAL PKG3<span class="Special">)</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>METAL PKG2<span class="Special">))</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>METAL PKG1<span class="Special">))</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>IN PKG5<span class="Special">))</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>IN PKG4<span class="Special">))</span>
+     <span class="Special">(</span>IN PKG3<span class="Special">)</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>IN PKG1<span class="Special">))</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>IN PKG2<span class="Special">))</span>
+     <span class="Special">(</span>ARMED<span class="Special">)</span>
+     <span class="Special">(</span>TOILET TOILET1<span class="Special">)</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>CLOGGED TOILET1<span class="Special">))</span>
+--- <span class="Constant">4</span> ---
+     <span class="Special">(</span>OBJECT TOILET1<span class="Special">)</span>
+     <span class="Special">(</span>OBJECT PKG5<span class="Special">)</span>
+     <span class="Special">(</span>OBJECT PKG4<span class="Special">)</span>
+     <span class="Special">(</span>OBJECT PKG3<span class="Special">)</span>
+     <span class="Special">(</span>OBJECT PKG2<span class="Special">)</span>
+     <span class="Special">(</span>OBJECT PKG1<span class="Special">)</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>ODOR-OF-EXPLOSIVES PKG5<span class="Special">))</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>ODOR-OF-EXPLOSIVES PKG4<span class="Special">))</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>ODOR-OF-EXPLOSIVES PKG3<span class="Special">))</span>
+     <span class="Special">(</span>ODOR-OF-EXPLOSIVES PKG2<span class="Special">)</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>ODOR-OF-EXPLOSIVES PKG1<span class="Special">))</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>METAL PKG5<span class="Special">))</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>METAL PKG4<span class="Special">))</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>METAL PKG3<span class="Special">))</span>
+     <span class="Special">(</span>METAL PKG2<span class="Special">)</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>METAL PKG1<span class="Special">))</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>IN PKG5<span class="Special">))</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>IN PKG4<span class="Special">))</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>IN PKG3<span class="Special">))</span>
+     <span class="Special">(</span>IN PKG2<span class="Special">)</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>IN PKG1<span class="Special">))</span>
+     <span class="Special">(</span>ARMED<span class="Special">)</span>
+     <span class="Special">(</span>TOILET TOILET1<span class="Special">)</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>CLOGGED TOILET1<span class="Special">))</span>
+--- <span class="Constant">5</span> ---
+     <span class="Special">(</span>OBJECT TOILET1<span class="Special">)</span>
+     <span class="Special">(</span>OBJECT PKG5<span class="Special">)</span>
+     <span class="Special">(</span>OBJECT PKG4<span class="Special">)</span>
+     <span class="Special">(</span>OBJECT PKG3<span class="Special">)</span>
+     <span class="Special">(</span>OBJECT PKG2<span class="Special">)</span>
+     <span class="Special">(</span>OBJECT PKG1<span class="Special">)</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>ODOR-OF-EXPLOSIVES PKG5<span class="Special">))</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>ODOR-OF-EXPLOSIVES PKG4<span class="Special">))</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>ODOR-OF-EXPLOSIVES PKG3<span class="Special">))</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>ODOR-OF-EXPLOSIVES PKG2<span class="Special">))</span>
+     <span class="Special">(</span>ODOR-OF-EXPLOSIVES PKG1<span class="Special">)</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>METAL PKG5<span class="Special">))</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>METAL PKG4<span class="Special">))</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>METAL PKG3<span class="Special">))</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>METAL PKG2<span class="Special">))</span>
+     <span class="Special">(</span>METAL PKG1<span class="Special">)</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>IN PKG5<span class="Special">))</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>IN PKG4<span class="Special">))</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>IN PKG3<span class="Special">))</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>IN PKG2<span class="Special">))</span>
+     <span class="Special">(</span>IN PKG1<span class="Special">)</span>
+     <span class="Special">(</span>ARMED<span class="Special">)</span>
+     <span class="Special">(</span>TOILET TOILET1<span class="Special">)</span>
+     <span class="Special">(</span><span class="Statement">NOT</span> <span class="Special">(</span>CLOGGED TOILET1<span class="Special">))</span>
+
+<span class="Statement">***</span> <span class="Statement">-</span> THE: <span class="Type">#:CLUSTER</span> evaluated to <span class="Statement">the</span> <span class="Statement">values</span> <span class="Special">((</span>OBJECT TOILET1<span class="Special">))</span>, <span class="Statement">not</span> of <span class="Statement">type</span> <span class="Special">(</span><span class="Statement">VECTOR</span> CLUSTER <span class="Statement">*</span><span class="Special">)</span>
+<span class="Statement">The</span> following restarts are available:
+<span class="Statement">ABORT</span>          :R<span class="Constant">1</span>      <span class="Statement">Abort</span> main <span class="Statement">loop</span>
+<span class="Special">(</span>ext:exit<span class="Special">)</span>
+</pre>
+</body>
+</html>

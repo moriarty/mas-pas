@@ -8,9 +8,10 @@
 ;;(load (concatenate 'string *sgp-root-dir* "loader"))
 
 (load "~/src/sgp/loader")
+;; must also modify ~/src/sgp/loader to proper paths of files loaded.ß
+
 (load-gp)
 (in-package :sgp)
-
 ;;(defparameter *sgp-root-dir* (string "~/src/sgp/"))
 ;;(load (concatenate 'string *sgp-root-dir* "domains/bt.lisp"))
 (load "~/src/sgp/domains/bt.lisp")

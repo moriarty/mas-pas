@@ -19,8 +19,7 @@
 
 (in-package :domains)
 
-
-(define (domain shopping-sgp) (:requirements :typing)
+(define (domain shopping-sgp) (:requirements :typing )
   (:action GO
 	   :parameters (?start ?goal)
 	   :precondition (and (location ?start) (location ?goal) (at ?start))
@@ -33,8 +32,9 @@
 
 )
 
-(define (problem shopping-problem-sgp) (:domain shopping-sgp)
-  ;;(:objects drill banana milk)
+(define (problem shopping-problem-sgp) 
+  (:domain shopping-sgp)
+  (:objects drill banana milk home hardware-store supermarket)
   (:init 
   	 (location home)(location hardware-store)(location super-market)
   	 (at home)
@@ -48,7 +48,5 @@
 (in-package :sgp)
 (trace-gp contexts)
 (plan 'shopping-problem-sgp)
-
-
 
 (ext:exit)

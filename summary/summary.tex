@@ -1,0 +1,115 @@
+%%% LaTeX Template: Two column article
+%%%
+%%% Source: http://www.howtotex.com/
+%%% Feel free to distribute this template, but please keep to referal to http://www.howtotex.com/ here.
+%%% Date: February 2011
+
+%%% Preamble
+\documentclass[	DIV=calc,%
+							paper=a4,%
+							fontsize=11pt,%
+							twocolumn]{scrartcl}	 					% KOMA-article class
+
+\usepackage{lipsum}													% Package to create dummy text
+
+\usepackage[english]{babel}										% English language/hyphenation
+\usepackage[protrusion=true,expansion=true]{microtype}				% Better typography
+\usepackage{amsmath,amsfonts,amsthm}					% Math packages
+\usepackage[pdftex]{graphicx}									% Enable pdflatex
+\usepackage[svgnames]{xcolor}									% Enabling colors by their 'svgnames'
+\usepackage[hang, small,labelfont=bf,up,textfont=it,up]{caption}	% Custom captions under/above floats
+\usepackage{epstopdf}												% Converts .eps to .pdf
+\usepackage{subfig}													% Subfigures
+\usepackage{booktabs}												% Nicer tables
+\usepackage{fix-cm}													% Custom fontsizes
+
+
+
+%%% Custom sectioning (sectsty package)
+\usepackage{sectsty}													% Custom sectioning (see below)
+\allsectionsfont{%															% Change font of al section commands
+	\usefont{OT1}{phv}{b}{n}%										% bch-b-n: CharterBT-Bold font
+	}
+
+\sectionfont{%																% Change font of \section command
+	\usefont{OT1}{phv}{b}{n}%										% bch-b-n: CharterBT-Bold font
+	}
+
+
+\definecolor{brsugrey}{rgb}{0.9, 0.9, 0.9}
+\definecolor{brsublue}{rgb}{0, 0.594, 0.949}
+
+
+\newcommand{\upperRomannumeral}[1]{\uppercase\expandafter{\romannumeral#1}}
+
+%%% Headers and footers
+\usepackage{fancyhdr}												% Needed to define custom headers/footers
+	\pagestyle{fancy}														% Enabling the custom headers/footers
+\usepackage{lastpage}	
+
+% Header (empty)
+\lhead{}
+\chead{}
+\rhead{}
+% Footer (you may change this to your own needs)
+\lfoot{\footnotesize \texttt{SDP} \textbullet ~ Moriarty, Abubucker \textbullet ~ OMPL Phase \upperRomannumeral{1} Report}
+\cfoot{}
+\rfoot{\footnotesize page \thepage\ of \pageref{LastPage}}	% "Page 1 of 2"
+\renewcommand{\headrulewidth}{0.0pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+
+
+%%% Creating an initial of the very first character of the content
+\usepackage{lettrine}
+\newcommand{\initial}[1]{%
+     \lettrine[lines=3,lhang=0.3,nindent=0em]{
+     				\color{brsublue}
+     				{\textsf{#1}}}{}}
+
+%%% Title, author and date metadata
+\usepackage{titling}															% For custom titles
+
+\newcommand{\HorRule}{\color{brsublue}%			% Creating a horizontal rule
+									  	\rule{\linewidth}{1pt}%
+										}
+
+\pretitle{\vspace{-30pt} \begin{flushleft} \HorRule 
+				\fontsize{25}{25} \usefont{OT1}{phv}{b}{n} \color{gray} \selectfont 
+				}
+\title{Open Motion Planning Library (OMPL)\\ Phase~\upperRomannumeral{1} Report}	% Title of your article goes here
+\posttitle{\par\end{flushleft}\vskip 0.5em}
+
+\preauthor{\begin{flushleft}
+					\large \lineskip 0.25em \usefont{OT1}{phv}{b}{sl} \color{brsublue}}
+\author{Alexander Moriarty, Shameer Abubucker, }									% Author name goes here
+\postauthor{\footnotesize \usefont{OT1}{phv}{m}{sl} \color{Black} 
+					BRS University of Applied Sciences 		% Institution of author
+					\\ Software Development Project
+					\par\end{flushleft}\HorRule}
+
+\date{\today}							% No date
+
+
+
+%%% Begin document
+\begin{document}
+\maketitle
+\thispagestyle{fancy} 			% Enabling the custom headers/footers for the first page 
+% The first character should be within \initial{}
+\initial{O}\textbf{pen Motion Planning Library, is a software library which we have been tasked with agentifying. The benefit of agentifying software components, is the software components become self aware. These simple agentified software components allow for the development of more intelligent software agents. The goal is for a software agent which can dynamically choose the best configuration of it's available agentified components to accomplish a given task. In the OMPL, there exist Planner components; our end goal is to have an agent which can dynamically choose the best planner to use based on the task requirements.}
+
+\section*{The Project}
+\input{sections/todate}
+
+\input{sections/worklog}
+\input{sections/positive}
+\input{sections/challenges}
+\section*{Phase \upperRomannumeral{2}}
+\input{sections/nextphase}
+\section*{Sources}
+\input{sections/references}
+
+
+
+\end{document}

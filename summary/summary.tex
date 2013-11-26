@@ -52,7 +52,7 @@
 \chead{}
 \rhead{}
 % Footer (you may change this to your own needs)
-\lfoot{\footnotesize \texttt{SDP} \textbullet ~ Moriarty, Abubucker \textbullet ~ OMPL Phase \upperRomannumeral{1} Report}
+\lfoot{\footnotesize \texttt{P\&S} \textbullet ~ Moriarty, Hagg \textbullet ~ Planning and Scheduling Summary}
 \cfoot{}
 \rfoot{\footnotesize page \thepage\ of \pageref{LastPage}}	% "Page 1 of 2"
 \renewcommand{\headrulewidth}{0.0pt}
@@ -77,15 +77,15 @@
 \pretitle{\vspace{-30pt} \begin{flushleft} \HorRule 
 				\fontsize{25}{25} \usefont{OT1}{phv}{b}{n} \color{gray} \selectfont 
 				}
-\title{Open Motion Planning Library (OMPL)\\ Phase~\upperRomannumeral{1} Report}	% Title of your article goes here
+\title{Planning and Scheduling\\ Summary}	% Title of your article goes here
 \posttitle{\par\end{flushleft}\vskip 0.5em}
 
 \preauthor{\begin{flushleft}
 					\large \lineskip 0.25em \usefont{OT1}{phv}{b}{sl} \color{brsublue}}
-\author{Alexander Moriarty, Shameer Abubucker, }									% Author name goes here
+\author{Alexander Moriarty, Alexander Hagg, }									% Author name goes here
 \postauthor{\footnotesize \usefont{OT1}{phv}{m}{sl} \color{Black} 
 					BRS University of Applied Sciences 		% Institution of author
-					\\ Software Development Project
+					\\ Planning and Scheduling summary
 					\par\end{flushleft}\HorRule}
 
 \date{\today}							% No date
@@ -97,19 +97,19 @@
 \maketitle
 \thispagestyle{fancy} 			% Enabling the custom headers/footers for the first page 
 % The first character should be within \initial{}
-\initial{O}\textbf{pen Motion Planning Library, is a software library which we have been tasked with agentifying. The benefit of agentifying software components, is the software components become self aware. These simple agentified software components allow for the development of more intelligent software agents. The goal is for a software agent which can dynamically choose the best configuration of it's available agentified components to accomplish a given task. In the OMPL, there exist Planner components; our end goal is to have an agent which can dynamically choose the best planner to use based on the task requirements.}
+\initial{P}\textbf{lanning and Scheduling mid semester summary in preparation of exam}
 
-\section*{The Project}
-\input{sections/todate}
 
-\input{sections/worklog}
-\input{sections/positive}
-\input{sections/challenges}
-\section*{Phase \upperRomannumeral{2}}
-\input{sections/nextphase}
-\section*{Sources}
-\input{sections/references}
-
+\input{sections/introduction}
+\input{sections/search_and_complexity}
+\input{sections/logic_and_inference}
+\input{sections/representing_plans}
+\input{sections/complexity_classical_planning}
+\input{sections/state_space_planning}
+\input{sections/plan_space_planning}
+\input{sections/graph_based_planning}
+\input{sections/satisfiability_based_planning}
+\input{sections/hierarchical_task_network_planning}
 
 
 \end{document}

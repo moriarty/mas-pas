@@ -1,5 +1,4 @@
-; This extremely simple example shows some of the most essential
-; features of SHOP2.
+; Assignment 4 "Tea Problem"
 
 (defdomain basic (
     (:operator (!pickup ?a) (see ?a) () ((have ?a))

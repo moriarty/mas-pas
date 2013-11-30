@@ -1,0 +1,2 @@
+(defproblem problem basic
+  ((full kettle) (dirty cup1)) ((maketea kettle cup1) (maketea kettle cup2)))

@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>~/workspace/mas/pas/hw4/maketea.lisp.html</title>
+<meta name="Generator" content="Vim/7.3">
+<meta name="plugin-version" content="vim7.3_v10">
+<meta name="syntax" content="lisp">
+<meta name="settings" content="number_lines,use_css,pre_wrap,expand_tabs">
+<style type="text/css">
+<!--
+pre { white-space: pre-wrap; font-family: monospace; color: #000000; background-color: #ffffff; }
+body { font-family: monospace; color: #000000; background-color: #ffffff; }
+.lnr { color: #ffff00; }
+.Statement { color: #8080ff; font-weight: bold; }
+.Special { color: #ff6060; font-weight: bold; }
+.Comment { color: #ff6060; }
+-->
+</style>
+</head>
+<body>
+<pre>
+<span class="lnr"> 1 </span><span class="Comment">; This extremely simple example shows some of the most essential</span>
+<span class="lnr"> 2 </span><span class="Comment">; features of SHOP2.</span>
+<span class="lnr"> 3 </span>
+<span class="lnr"> 4 </span><span class="Special">(</span>defdomain basic <span class="Special">(</span>
+<span class="lnr"> 5 </span>    <span class="Special">(</span>:operator <span class="Special">(</span>!pickup ?a<span class="Special">)</span> <span class="Special">(</span>see ?a<span class="Special">)</span> <span class="Special">()</span> <span class="Special">((</span>have ?a<span class="Special">))</span>
+<span class="lnr"> 6 </span>    <span class="Special">)</span> <span class="Comment">;end operator pickup</span>
+<span class="lnr"> 7 </span>    <span class="Special">(</span>:operator <span class="Special">(</span>!pour ?a ?b<span class="Special">)</span>
+<span class="lnr"> 8 </span>                    <span class="Special">((</span>have ?a<span class="Special">)(</span>see ?b<span class="Special">))</span>
+<span class="lnr"> 9 </span>                    <span class="Special">()</span>
+<span class="lnr">10 </span>                    <span class="Special">((</span>full ?b<span class="Special">))</span>
+<span class="lnr">11 </span>    <span class="Special">)</span> <span class="Comment">;end operator pour</span>
+<span class="lnr">12 </span>    <span class="Special">(</span>:operator <span class="Special">(</span>!find ?a<span class="Special">)</span>
+<span class="lnr">13 </span>                    <span class="Special">()</span>
+<span class="lnr">14 </span>                    <span class="Special">()</span>
+<span class="lnr">15 </span>                    <span class="Special">((</span>see ?a<span class="Special">))</span>
+<span class="lnr">16 </span>    <span class="Special">)</span> <span class="Comment">;end operator find</span>
+<span class="lnr">17 </span>    <span class="Special">(</span>:operator <span class="Special">(</span>!clean ?a<span class="Special">)</span>
+<span class="lnr">18 </span>                    <span class="Special">((</span>dirty ?a<span class="Special">)</span> <span class="Special">(</span>have ?a<span class="Special">))</span>
+<span class="lnr">19 </span>                    <span class="Special">((</span>dirty ?a<span class="Special">))</span>
+<span class="lnr">20 </span>                    <span class="Special">()</span>
+<span class="lnr">21 </span>    <span class="Special">)</span> <span class="Comment">;end operated clean</span>
+<span class="lnr">22 </span>
+<span class="lnr">23 </span>    <span class="Special">(</span>:method <span class="Special">(</span>maketea ?a ?b<span class="Special">)</span>
+<span class="lnr">24 </span>        <span class="Special">((</span>see ?b<span class="Special">)</span> <span class="Special">(</span>dirty ?b<span class="Special">))</span>
+<span class="lnr">25 </span>            <span class="Special">((</span>wash ?b<span class="Special">)</span> <span class="Special">(</span>maketea ?a ?b<span class="Special">))</span>
+<span class="lnr">26 </span>        <span class="Special">((</span>see ?a<span class="Special">)</span> <span class="Special">(</span>see ?b<span class="Special">)</span> <span class="Special">(</span><span class="Statement">not</span> <span class="Special">(</span>dirty ?b<span class="Special">)))</span>
+<span class="lnr">27 </span>            <span class="Special">((</span>!pickup ?a<span class="Special">)</span> <span class="Special">(</span>!pour ?a ?b<span class="Special">))</span>
+<span class="lnr">28 </span>        <span class="Special">((</span>see ?a<span class="Special">)</span> <span class="Special">(</span><span class="Statement">not</span> <span class="Special">(</span>see ?b<span class="Special">)))</span>
+<span class="lnr">29 </span>            <span class="Special">((</span>!find ?b<span class="Special">)</span> <span class="Special">(</span>maketea ?a ?b<span class="Special">))</span>
+<span class="lnr">30 </span>        <span class="Special">((</span>see ?b<span class="Special">)</span> <span class="Special">(</span><span class="Statement">not</span> <span class="Special">(</span>see ?a<span class="Special">)))</span>
+<span class="lnr">31 </span>            <span class="Special">((</span>!find ?a<span class="Special">)</span> <span class="Special">(</span>maketea ?a ?b<span class="Special">))</span>
+<span class="lnr">32 </span>        <span class="Special">()</span>
+<span class="lnr">33 </span>            <span class="Special">((</span>!find ?a<span class="Special">)</span> <span class="Special">(</span>!find ?b<span class="Special">)</span> <span class="Special">(</span>maketea ?a ?b<span class="Special">))</span>
+<span class="lnr">34 </span>    <span class="Special">)</span> <span class="Comment">;end of maketea method</span>
+<span class="lnr">35 </span>
+<span class="lnr">36 </span>    <span class="Special">(</span>:method <span class="Special">(</span>wash ?a<span class="Special">)</span>
+<span class="lnr">37 </span>        <span class="Special">((</span><span class="Statement">not</span> <span class="Special">(</span>dirty ?a<span class="Special">)))</span>
+<span class="lnr">38 </span>            <span class="Special">()</span>
+<span class="lnr">39 </span>        <span class="Special">((</span>see ?a<span class="Special">))</span>
+<span class="lnr">40 </span>            <span class="Special">((</span>!pickup ?a<span class="Special">)</span> <span class="Special">(</span>!clean ?a<span class="Special">))</span>
+<span class="lnr">41 </span>        <span class="Special">((</span>have ?a<span class="Special">))</span>
+<span class="lnr">42 </span>            <span class="Special">((</span>!clean ?a<span class="Special">))</span>
+<span class="lnr">43 </span>        <span class="Special">()</span>
+<span class="lnr">44 </span>            <span class="Special">((</span>!find ?a<span class="Special">)</span> <span class="Special">(</span>!pickup ?a<span class="Special">)</span> <span class="Special">(</span>!clean ?a<span class="Special">))</span>
+<span class="lnr">45 </span>    <span class="Special">)</span> <span class="Comment">;end of wash method</span>
+<span class="lnr">46 </span>    <span class="Special">))</span>
+<span class="lnr">47 </span>
+</pre>
+</body>
+</html>

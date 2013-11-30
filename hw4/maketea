@@ -1,0 +1,46 @@
+; Assignment 4 "Tea Problem"
+
+(defdomain basic (
+    (:operator (!pickup ?a) (see ?a) () ((have ?a))
+    ) ;end operator pickup
+    (:operator (!pour ?a ?b) 
+                    ((have ?a)(see ?b)) 
+                    ()
+                    ((full ?b))
+    ) ;end operator pour
+    (:operator (!find ?a) 
+                    () 
+                    () 
+                    ((see ?a))
+    ) ;end operator find
+    (:operator (!clean ?a) 
+                    ((dirty ?a) (have ?a))
+                    ((dirty ?a)) 
+                    ()
+    ) ;end operated clean
+
+    (:method (maketea ?a ?b)
+        ((see ?b) (dirty ?b))
+            ((wash ?b) (maketea ?a ?b))
+        ((see ?a) (see ?b) (not (dirty ?b)))
+            ((!pickup ?a) (!pour ?a ?b))
+        ((see ?a) (not (see ?b)))
+            ((!find ?b) (maketea ?a ?b))
+        ((see ?b) (not (see ?a)))
+            ((!find ?a) (maketea ?a ?b))
+        ()
+            ((!find ?a) (!find ?b) (maketea ?a ?b))
+    ) ;end of maketea method
+
+    (:method (wash ?a)
+        ((not (dirty ?a)))
+            ()
+        ((see ?a))
+            ((!pickup ?a) (!clean ?a))
+        ((have ?a))
+            ((!clean ?a))    
+        ()
+            ((!find ?a) (!pickup ?a) (!clean ?a))
+    ) ;end of wash method
+    ))
+    

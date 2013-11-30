@@ -20,6 +20,14 @@
 (in-package :domains)
 
 (define (domain shopping-sgp) (:requirements :typing )
+
+  (:predicates
+   	   TODO
+	   (at ?place)
+	   (have ?thing)
+	   (sells ?place ?thing)
+	   (path ?from ?to)
+  )
   (:action GO
 	   :parameters (?start ?goal)
 	   :precondition (and (location ?start) (location ?goal) (at ?start))

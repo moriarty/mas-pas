@@ -1,0 +1,77 @@
+\begin{itemize}
+\item \textbf{Classical representation}
+
+	\begin{itemize}
+	\item function-free FOL
+	\item Atom: predicate symbol and args $on(c1,c3)$, $on(c1,x)$
+	\item Ground expression: instantiated var $on(c1,c3)$
+	\item Nonground expression: at least one var $on(c1,x)$
+	\item Substitution $\theta = {x_1 \leftarrow v_1, ... }$ 
+	\item Instance of expression e: result of applying $\theta$ 
+	\end{itemize}
+\item State : set of ground atoms
+
+\item Operator
+	\begin{itemize}
+	\item (name, precond, effects)
+	\item $take(k,l,c,d,p) \\ precond: belong(k,l) \\ effects: holding(k,c), \neg empty(k) $
+	\end{itemize}
+	
+\item Action
+	\begin{itemize}
+	\item ground instance of operator
+	\end{itemize}
+	
+\item Notation
+	\begin{itemize}
+	\item $S^+$, $S^-$, $precond^+$, ...
+	\end{itemize}
+
+\item Result of action
+	\begin{itemize}
+	\item $\gamma (s,a) = ( s \backslash effects^-(a) \cup effects^+(a)$
+	\end{itemize}
+
+\item Planning problem
+	\begin{itemize}
+	\item given: domain (L, O) (Language, Operators)
+	\item $P = (\Sigma,s_0,S_g)$ (state-trans., initState, goal formula)
+	\item $\Sigma = (S,A,E,\gamma)$
+	\end{itemize}
+
+\item Plan
+	\begin{itemize}
+	\item $\sigma = \langle a_1,a_2,...,a_n \rangle$
+	\item is a solution for P if it is executable and achieves g
+	\end{itemize}
+	
+\end{itemize}
+
+\begin{itemize}
+\item \textbf{Set-theoretic representation}
+
+	\begin{itemize}
+	\item classical representation + restriction to PL
+	\item collection of propositions (bool) instead of ground atoms
+	\item effects: delete, add
+	\end{itemize}
+\item exponential blow-up		
+\end{itemize}
+
+\begin{itemize}
+\item \textbf{State-Variable representation}
+
+	\begin{itemize}
+	\item State variables: pos(x) = y (if block x is on block y)
+	\end{itemize}
+\end{itemize}
+
+\begin{itemize}
+\item \textbf{Expressive power}
+\item linear time/space conversion between all three representations, except for expBlowup on conversion to set-theoretic
+	\begin{itemize}
+	\item classical rep: most popular
+	\item set-theoretic: much more space, useful for algorithms that manipulate ground atoms directly
+	\item state-variabl: equivalent to classical, more natural for engineers, used for non-classical planning problems (incl. functions!) 	
+	\end{itemize}
+\end{itemize}

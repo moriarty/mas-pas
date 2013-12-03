@@ -1,4 +1,10 @@
 \begin{itemize}
+ \item DEFINITION: Plan
+ \begin{itemize}
+   \item A collection of actions for performing some task
+   or achieving some objective
+  \end{itemize} 	
+  
  \item Conceptual model
   \begin{figure}[h]
     \centering
@@ -11,14 +17,24 @@
 	$\Sigma = (S,A,E,\gamma)$
   \begin{itemize}
    \item $S$: states
-   \item $A$: actions
-   \item $E$: events
-   \item $\gamma$: state-transition function
+   \item $A$: actions (controllable)
+   \item $E$: events (uncontrollable)
+   \item $\gamma : S \times ( A \cup\ E ) \mapsto 2^{S}$: state-transition function
   \end{itemize} 	
-
+  
+  \item Observation function
+    \begin{itemize}
+    \item $h:S \mapsto O$
+    \end{itemize} 	
+  \item Planner
+    \begin{itemize}
+    \item description of $\Sigma$, initial state $s_0 \in S$, some objective
+    \end{itemize} 	
+    
  \item Objectives
  \begin{itemize}
   \item $S_g$: set of goal states
+  \item condition over set of states followed by system
   \item utility function
  \end{itemize}
  
@@ -44,7 +60,18 @@
  \end{itemize}
  
  \item Relaxing assumptions
- \emph{Is this necessary?} 
+ \begin{itemize}
+  \item A0: discrete logic (e.g. 1st order), continuous variables)
+  \item A1: if we don't relax other restrictions, only uncertainty is about $s_0$
+  \item A2: nondeterministic outcomes, seek policy/contingency plan, MDPs (probabilities)
+  \item A1+A2: Finite POMDPs
+  \item A0+A2: Continuous or hybrid MDPs
+  \item A0+A1+A2: Continuous or hybrid MDPs
+  \item A3: Other agents/dynamic environment, randomly behaving environment
+  \item A1+A3: Imperfect-information games
+  \item A5/A6: Temporal planning
+  \item A0+A5+A6: Planning and resource scheduling
+ \end{itemize}
  
 \end{itemize}
 
